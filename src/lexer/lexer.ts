@@ -1,5 +1,5 @@
 import { Token, TokenTypes, lookupIdent } from "../token/token";
-import { isLetter, newToken } from "../helpers/helpers"
+import { isDigit, isLetter, newToken } from "../helpers/helpers"
 
 export class Lexer {
   private input: string;
@@ -63,10 +63,15 @@ export class Lexer {
       case '+':
         token = newToken(TokenTypes.PLUS, this.ch);
         break;
+      case "":
+        return token;
       default:
         if (isLetter(this.ch)) {
           token.literal = this.readIdentifier();
           token.type = lookupIdent(token.literal);
+          return token;
+        } else if(isDigit(this.ch)) {
+          token = newToken(TokenTypes.INT, this.readNumber())
           return token;
         } else {
           token = newToken(TokenTypes.ILLEGAL, this.ch)
@@ -86,9 +91,20 @@ export class Lexer {
     return this.input.slice(position, this.position);
   }
 
+  private readNumber(): string {
+    const position = this.position;
+    while (isDigit(this.ch)) {
+      this.readChar();
+    }
+
+    return this.input.slice(position, this.position);
+  }
+
   private skipWhitespace() {
     while(this.ch === ' ' || this.ch === "\t" || this.ch === "\r" || this.ch === "\n") {
       this.readChar()
     }
   }
+  
+
 }

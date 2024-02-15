@@ -3,7 +3,7 @@ import { Lexer } from "./lexer";
 
 describe('Lexer', () => {
   it('should return next token', () => {
-    const input = `let five = 5
+    const input = `let five = 5;
       let ten = 10;
 
       let add = fn(x, y) {
