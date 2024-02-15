@@ -1,5 +1,5 @@
 import { Token, TokenTypes, lookupIdent } from "../token/token";
-import { isDigit, isLetter, newToken } from "../helpers/helpers"
+import { isDigit, isLetter, newToken } from "../helpers/helpers";
 
 export class Lexer {
   private input: string;
@@ -33,35 +33,53 @@ export class Lexer {
   public nextToken(): Token {
     let token: Token = {
       type: TokenTypes.EOF,
-      literal: '',
-    }
+      literal: "",
+    };
 
     this.skipWhitespace();
 
     switch (this.ch) {
-      case '=':
+      case "=":
         token = newToken(TokenTypes.ASSIGN, this.ch);
         break;
-      case ';':
+      case ";":
         token = newToken(TokenTypes.SEMICOLON, this.ch);
         break;
-      case '(':
+      case "(":
         token = newToken(TokenTypes.LPAREN, this.ch);
         break;
-      case ')':
+      case ")":
         token = newToken(TokenTypes.RPAREN, this.ch);
         break;
-      case '{':
+      case "{":
         token = newToken(TokenTypes.LBRACE, this.ch);
         break;
-      case '}':
+      case "}":
         token = newToken(TokenTypes.RBRACE, this.ch);
         break;
-      case ',':
+      case ",":
         token = newToken(TokenTypes.COMMA, this.ch);
         break;
-      case '+':
+      case "+":
         token = newToken(TokenTypes.PLUS, this.ch);
+        break;
+      case "-":
+        token = newToken(TokenTypes.MINUS, this.ch);
+        break;
+      case "!":
+        token = newToken(TokenTypes.BANG, this.ch);
+        break;
+      case "/":
+        token = newToken(TokenTypes.SLASH, this.ch);
+        break;
+      case "*":
+        token = newToken(TokenTypes.ASTERISK, this.ch);
+        break;
+      case ">":
+        token = newToken(TokenTypes.GT, this.ch);
+        break;
+      case "<":
+        token = newToken(TokenTypes.LT, this.ch);
         break;
       case "":
         return token;
@@ -70,11 +88,11 @@ export class Lexer {
           token.literal = this.readIdentifier();
           token.type = lookupIdent(token.literal);
           return token;
-        } else if(isDigit(this.ch)) {
-          token = newToken(TokenTypes.INT, this.readNumber())
+        } else if (isDigit(this.ch)) {
+          token = newToken(TokenTypes.INT, this.readNumber());
           return token;
         } else {
-          token = newToken(TokenTypes.ILLEGAL, this.ch)
+          token = newToken(TokenTypes.ILLEGAL, this.ch);
         }
         break;
     }
@@ -101,10 +119,13 @@ export class Lexer {
   }
 
   private skipWhitespace() {
-    while(this.ch === ' ' || this.ch === "\t" || this.ch === "\r" || this.ch === "\n") {
-      this.readChar()
+    while (
+      this.ch === " " ||
+      this.ch === "\t" ||
+      this.ch === "\r" ||
+      this.ch === "\n"
+    ) {
+      this.readChar();
     }
   }
-  
-
 }
