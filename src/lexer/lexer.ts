@@ -41,6 +41,11 @@ export class Lexer {
     switch (this.ch) {
       case "=":
         token = newToken(TokenTypes.ASSIGN, this.ch);
+        if (this.peekChar() === "=") {
+          const ch = this.ch;
+          this.readChar();
+          token = newToken(TokenTypes.EQ, `${ch}${this.ch}`);
+        }
         break;
       case ";":
         token = newToken(TokenTypes.SEMICOLON, this.ch);
@@ -68,6 +73,11 @@ export class Lexer {
         break;
       case "!":
         token = newToken(TokenTypes.BANG, this.ch);
+        if (this.peekChar() === "=") {
+          const ch = this.ch;
+          this.readChar();
+          token = newToken(TokenTypes.NE, `${ch}${this.ch}`);
+        }
         break;
       case "/":
         token = newToken(TokenTypes.SLASH, this.ch);
@@ -126,6 +136,14 @@ export class Lexer {
       this.ch === "\n"
     ) {
       this.readChar();
+    }
+  }
+
+  private peekChar(): string {
+    if (this.readPosition >= this.input.length) {
+      return "";
+    } else {
+      return this.input[this.readPosition];
     }
   }
 }

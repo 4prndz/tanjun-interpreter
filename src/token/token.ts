@@ -13,6 +13,8 @@ export const TokenTypes = {
   ASTERISK: "*",
   GT: ">",
   LT: "<",
+  EQ: "==",
+  NE: "!=",
 
   COMMA: ",",
   SEMICOLON: ";",
