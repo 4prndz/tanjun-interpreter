@@ -2,9 +2,9 @@
   "name": "tanjun-interpreter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "repl/repl.js",
   "scripts": {
-    "exec": "node src/index.ts",
+    "dev": "nodemon src/repl/repl.ts",
     "test": "vitest"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "eslint": "^8.56.0",
+    "nodemon": "^3.0.3",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }
