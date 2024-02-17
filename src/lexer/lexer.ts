@@ -14,7 +14,7 @@ export class Lexer {
     this.ch = "";
   }
 
-  public static newLexer(input: string): Lexer {
+  public static new(input: string): Lexer {
     const lexer = new Lexer(input);
     lexer.readChar();
     return lexer;

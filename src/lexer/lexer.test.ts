@@ -99,7 +99,7 @@ describe("Lexer", () => {
       { expectedType: TokenTypes.SEMICOLON, expectedLiteral: ";" },
       { expectedType: TokenTypes.EOF, expectedLiteral: "" },
     ];
-    const lexer = Lexer.newLexer(input);
+    const lexer = Lexer.new(input);
     for (const test of tests) {
       const curToken = lexer.nextToken();
       expect(curToken.type).toEqual(test.expectedType);
